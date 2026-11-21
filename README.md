@@ -5,8 +5,8 @@ A lightweight, responsive personal rallying website. No framework or build step 
 ## Site sections
 
 - Home, with a photograph of the number 64 Peugeot 205 rally car.
-- Rally cars > Peugeot 205 GTi 1.9 > Overview, History, Testing & Procedures, Events.
-- Testing procedures organised by vehicle system. Initial procedure: Braking system > Brake servo & vacuum circuit.
+- Rally cars > Peugeot 205 GTi 1.9 > Overview, History, Testing & Procedures, Historical Tests, Car Problems, Specialist Tools, Events.
+- Testing procedures, dated Historical Tests, and ongoing Car Problems all use the same six vehicle-system categories. Each problem can link to its relevant procedure and test results; unconfirmed causes are kept open rather than marked as repaired.
 
 ## Run locally
 
