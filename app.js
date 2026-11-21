@@ -14,13 +14,13 @@ const PROCEDURES = [
   {slug:'driveshaft-removal-refit',category:'drivetrain',name:'Driveshaft removal & refitting',desc:'Peugeot 205 GTi rally-car driveshaft procedure, including intermediate bearing, seals, torque checks and collar modification.',duration:'Workshop job',equipment:'Axle stands, torque wrenches, 11 mm deep and 16 mm sockets',status:'Documented'},
   {slug:'gearbox-oil-refill',category:'drivetrain',name:'Gearbox oil refill',desc:'Refill using a 17 mm stubby spanner and slim 30 cm funnel, keeping the battery and oil catch can fitted.',duration:'Workshop job',equipment:'17 mm stubby spanner, slim 30 cm funnel, correct gearbox oil',status:'Documented'},
   {slug:'plated-lsd-breakaway-test',category:'drivetrain',name:'Plated LSD breakaway torque test',desc:'In-car static resistance check, recorded 28 Nm result, and bench-test follow-up for the 205 GTi rally car.',duration:'Stationary diagnostic',equipment:'Jack, axle stand, wheel chocks, torque wrench and suitable hub socket',status:'Documented'},
-  {slug:'battery-voltage-starting-test',category:'electrical',name:'Battery voltage & starting test',desc:'Record battery resting voltage, voltage during cranking, a single-click no-start symptom and alternator charging checks.',duration:'10–20 MIN',equipment:'Digital multimeter with minimum-voltage function (helpful)',status:'Documented'}
+  {slug:'battery-voltage-starting-test',category:'electrical',name:'Battery voltage & starting test',desc:'Record resting and starting voltage, investigate an intermittent single-click no-crank symptom and check alternator charging.',duration:'10–20 MIN',equipment:'Digital multimeter with minimum-voltage function (helpful)',status:'Documented'}
 ];
 
 const HISTORICAL_TESTS = [
   {id:'battery-2026-11-21',category:'electrical',procedure:'battery-voltage-starting-test',date:'2026-11-21',time:null,outcome:'In progress',
-   results:[['Battery voltage (engine off)','12.33 V'],['Starting symptom','Initially turned over; now one click, no cranking'],['Lowest voltage during START','Not yet recorded'],['Alternator charging voltage','Not yet recorded']],
-   notes:'The battery condition, connections and starter motor have not yet been diagnosed. The voltage rest period is unknown.'},
+   results:[['Battery voltage (engine off)','12.33 V'],['Starting symptom','One click and no cranking on an earlier attempt; engine subsequently started normally'],['Latest starting attempt','Engine started normally (21 November 2026; exact time not recorded)'],['Lowest voltage during START','Not yet recorded'],['Alternator charging voltage','Not yet recorded']],
+   notes:'Intermittent single-click no-crank fault: a later successful start means the fault is not currently present, but does not rule out low battery charge, high-resistance terminal or engine earth, starter solenoid or starter motor. Battery state of health and charging system remain untested. Rest period before 12.33 V was unknown. If it recurs, record voltage directly across the battery posts during START; inspect and test positive and earth connections before replacing parts.'},
   {id:'lsd-2026-11-21',category:'drivetrain',procedure:'plated-lsd-breakaway-test',date:'2026-11-21',time:null,outcome:'Further investigation',
    results:[['In-car breakaway reading','Approximately 28 Nm (repeated)'],['Owner-reported target','Approximately 95 Nm (not a confirmed factory specification)'],['Bench preload measurement','Not yet recorded']],
    notes:'The in-car check is not a direct bench preload measurement. Identify the differential and bench-test before making a rebuild decision.'}
@@ -323,12 +323,12 @@ function batteryStartingTest(){
       <section class="procedure-section" id="log"><h2>05 / Peugeot 205 GTi workshop observations — 21 November 2026</h2>
         <table class="results-table"><thead><tr><th>Item</th><th>Recorded finding</th></tr></thead><tbody>
           <tr><td>Resting voltage</td><td><strong>12.33 V</strong> with engine off (rest period not confirmed)</td></tr>
-          <tr><td>Starting attempt</td><td>Engine initially turned over, but subsequent attempt produced <strong>one click and no cranking</strong></td></tr>
+          <tr><td>Starting attempts</td><td>Engine initially turned over; a subsequent attempt produced <strong>one click and no cranking</strong>; later the engine <strong>started normally</strong> (exact time not recorded).</td></tr>
           <tr><td>Minimum voltage during START</td><td><strong>Not yet recorded</strong></td></tr>
-          <tr><td>Charging voltage</td><td><strong>Not yet recorded</strong>; engine not running during reported fault</td></tr>
-          <tr><td>Diagnosis</td><td>Discharged or weak battery, poor high-current connection/earth or starter fault remain possibilities — <strong>not confirmed</strong></td></tr>
+          <tr><td>Charging voltage</td><td><strong>Not yet recorded</strong>; no voltage reading reported after the successful start</td></tr>
+          <tr><td>Diagnosis</td><td><strong>Intermittent single-click no-crank</strong>. Battery charge/health, loose or corroded high-current connections/earth, starter solenoid and starter motor remain possible causes — <strong>not confirmed</strong>. Successful starting does not rule them out.</td></tr>
         </tbody></table>
-        <p>Next measurement: note the minimum voltage <strong>directly across the battery posts</strong> during one brief key-start attempt, and whether the clicking is a single click or rapid repeated clicks. Recharge and retest the battery as needed before replacing parts.</p>
+        <p><strong>Update:</strong> A later start was normal. If the no-crank fault returns, note the minimum voltage <strong>directly across the battery posts</strong> during START. Check the positive terminal, engine earth strap and starter connections for poor contact (engine off); a qualified technician can check voltage drop across these cables during cranking. Recharge and load-test the battery if required. Do not replace the battery or starter based on the click alone.</p>
       </section>
     </article><aside class="aside-box"><h3>On this page</h3>
       <a href="#equipment" data-anchor="equipment">Tools &amp; preparation</a>
