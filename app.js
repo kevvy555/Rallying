@@ -3,13 +3,14 @@
 const ROOT = '#/cars/205-gti';
 const CATEGORIES = [
   {slug:'brakes',name:'Braking system',symbol:'◎',desc:'Servo, hydraulics, pads, discs and balance',count:1},
-  {slug:'engine',name:'Engine & fuel',symbol:'⚡',desc:'Injection, ignition, cooling and emissions',count:0},
+  {slug:'engine',name:'Engine & fuel',symbol:'⚡',desc:'Injection, ignition, cooling and emissions',count:1},
   {slug:'drivetrain',name:'Transmission & drivetrain',symbol:'⚙',desc:'Gearbox, differential, shafts and joints',count:3},
   {slug:'suspension',name:'Suspension & steering',symbol:'⌁',desc:'Dampers, alignment, joints and steering',count:0},
   {slug:'electrical',name:'Electrical',symbol:'⌘',desc:'Charging, starting, wiring and instruments',count:1},
   {slug:'chassis',name:'Chassis & safety',symbol:'▣',desc:'Shell, cage, seats, belts and fire equipment',count:0}
 ];
 const PROCEDURES = [
+  {slug:'coolant-temperature-sensor-ecu-test',category:'engine',name:'Coolant temperature sensor & ECU wiring test',desc:'Cold and warm sensor resistance test via LE2-Jetronic ECU pins 10 and 13. Cold 3.9 kΩ recorded; warm check outstanding.',duration:'Cold check and follow-up after warm-up',equipment:'Digital multimeter and insulated probes',status:'Cold test recorded; warm test pending'},
   {slug:'brake-servo-vacuum',category:'brakes',name:'Brake servo & vacuum circuit',desc:'Check assistance, vacuum retention, the one-way valve and intake leaks.',duration:'20–40 MIN',equipment:'Vacuum pump recommended',status:'Documented'},
   {slug:'driveshaft-removal-refit',category:'drivetrain',name:'Driveshaft removal & refitting',desc:'Peugeot 205 GTi rally-car driveshaft procedure, including intermediate bearing, seals, torque checks and collar modification.',duration:'Workshop job',equipment:'Axle stands, torque wrenches, 11 mm deep and 16 mm sockets',status:'Documented'},
   {slug:'gearbox-oil-refill',category:'drivetrain',name:'Gearbox oil refill',desc:'Refill using a 17 mm stubby spanner and slim 30 cm funnel, keeping the battery and oil catch can fitted.',duration:'Workshop job',equipment:'17 mm stubby spanner, slim 30 cm funnel, correct gearbox oil',status:'Documented'},
@@ -18,6 +19,9 @@ const PROCEDURES = [
 ];
 
 const HISTORICAL_TESTS = [
+  {id:'coolant-temp-2026-11-21',category:'engine',procedure:'coolant-temperature-sensor-ecu-test',date:'2026-11-21',time:null,outcome:'Cold circuit check consistent; hot test pending',
+   results:[['ECU','Bosch LE2-Jetronic, 0 280 000 359'],['Cold blue coolant sensor measured directly','Approximately 3.9–4.0 kΩ'],['Sensor loom continuity','Continuity confirmed from blue sensor wiring connector to ECU plug pin 10'],['Cold resistance measured at ECU wiring plug pins 10 and 13','3.9 kΩ'],['Coolant temperature during cold test','Not recorded'],['Warm ECU plug resistance','Not yet tested']],
+   notes:'The ECU-plug reading agrees with the direct sensor reading when cold and is compatible with continuity at the time tested. No warm result has been recorded; the test will be repeated after a drive. This does not prove normal sensor behaviour across temperatures or identify the cause of rich running.'},
   {id:'battery-2026-11-21',category:'electrical',procedure:'battery-voltage-starting-test',date:'2026-11-21',time:null,outcome:'In progress',
    results:[['Battery voltage (engine off)','12.33 V'],['Starting symptom','One click and no cranking on an earlier attempt; engine subsequently started normally'],['Latest starting attempt','Engine started normally at normal cranking speed (21 November 2026; exact time not recorded)'],['Lowest voltage during START','Not yet recorded'],['Alternator charging voltage','Not yet recorded']],
    notes:'Intermittent single-click no-crank fault: a later successful start means the fault is not currently present, but does not rule out low battery charge, high-resistance terminal or engine earth, starter solenoid or starter motor. Battery state of health and charging system remain untested. Rest period before 12.33 V was unknown. If it recurs, record voltage directly across the battery posts during START; inspect and test positive and earth connections before replacing parts.'},
@@ -413,6 +417,86 @@ function batteryStartingTest(){
   </div>`;
 }
 
-function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path===CAR_PROBLEMS_ROOT)return ['205 GTi / CAR PROBLEMS',carProblems()];if(path.startsWith(CAR_PROBLEMS_ROOT+'/')){const parts=path.slice(CAR_PROBLEMS_ROOT.length+1).split('/');if(parts.length<=2){const c=CATEGORIES.find(c=>c.slug===parts[0]);if(c){if(parts.length===1)return ['CAR PROBLEMS / '+c.name.toUpperCase(),carProblemCategory(c)];const p=CAR_PROBLEMS.find(p=>p.category===c.slug&&p.id===parts[1]);if(p)return ['CAR PROBLEM / '+c.name.toUpperCase(),carProblemDetail(p)];}}}if(path===HIST_ROOT)return ['205 GTi / HISTORICAL TESTS',historicalTests()];if(path.startsWith(HIST_ROOT+'/')){const parts=path.slice(HIST_ROOT.length+1).split('/');if(parts.length===1){const cat=CATEGORIES.find(c=>c.slug===parts[0]);if(cat)return ['HISTORICAL TESTS / '+cat.name.toUpperCase(),historicalCategory(cat)];}}if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];if(path==='/cars/205-gti/tools')return ['205 GTi / SPECIALIST TOOLS',specialistTools()];if(path==='/cars/205-gti/tools/gearbox-refill-funnel')return ['SPECIALIST TOOLS / GEARBOX FUNNEL',gearboxFunnelTool()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()];if(m[2]==='gearbox-oil-refill'&&c.slug==='drivetrain')return ['DRIVETRAIN / GEARBOX OIL',gearboxOilRefill()];if(m[2]==='plated-lsd-breakaway-test'&&c.slug==='drivetrain')return ['DRIVETRAIN / LSD TEST',lsdBreakawayTest()];if(m[2]==='battery-voltage-starting-test'&&c.slug==='electrical')return ['ELECTRICAL / BATTERY TEST',batteryStartingTest()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
+
+function coolantTemperatureEcuTest(){
+ return `<div class="container">
+   <div class="procedure-heading">
+     ${link('/cars/205-gti/testing/engine','← Engine &amp; fuel procedures','back-link')}
+     <div class="procedure-header"><div class="eyebrow">PEUGEOT 205 GTi 1.9 / ENGINE &amp; FUEL / 001</div><span class="pill">WORKSHOP TEST</span></div>
+     <h1>COOLANT SENSOR &amp; <span style="color:var(--accent)">ECU WIRING TEST</span></h1>
+     <p>Cold and warm resistance checks of the <strong>blue two-pin injection coolant temperature sensor</strong> and its wiring, using the Bosch LE2-Jetronic ECU connector. This is not the dashboard gauge temperature sender.</p>
+     <div class="tag-row"><span class="tag">Cold: 3.9 kΩ at ECU plug</span><span class="tag">Pin 10 continuity confirmed</span><span class="tag">Warm reading still to do</span></div>
+   </div>
+   <div class="callout"><strong>Safety:</strong> Perform resistance and continuity measurements with the <strong>engine stopped, ignition off, battery negative disconnected and ECU unplugged</strong>. Probe the <strong>ECU wiring plug only</strong>, never the ECU's metal pins. Do not connect an ohmmeter to a powered circuit or bridge adjacent terminals. Reconnect the ECU and battery before starting the engine. For the warm test, avoid hot coolant parts, burns and the electric cooling fan.</div>
+   <div class="procedure-layout"><article>
+     <section class="procedure-section" id="identification"><h2>01 / Identification and equipment</h2>
+       <p><strong>ECU:</strong> Bosch LE2-Jetronic, part number <strong>0 280 000 359</strong>. <strong>ECU connector pin 10:</strong> coolant temperature sensor signal; <strong>pin 13:</strong> earth. The 25-way connector has unpopulated positions, and on this car the moulded pin numbers were not visible. Verify pin positions from the correct pinout and continuity, not by guessing the viewing direction. Use a multimeter with resistance (Ω / kΩ) and continuity settings plus suitable slim insulated probes.</p>
+     </section>
+     <section class="procedure-section" id="sensor"><h2>02 / Cold resistance directly at the sensor</h2>
+       <ol class="step-list">
+         <li>Start with a completely cold engine. Turn ignition off, disconnect the negative battery terminal, and locate the <strong>blue two-pin sensor</strong> below the distributor.</li>
+         <li>Unplug the blue sensor connector. Select <strong>20 kΩ</strong> on the multimeter (or auto-ranging resistance).</li>
+         <li>Measure <strong>between the two pins on the sensor itself</strong>, not the wiring connector. Record resistance and coolant temperature if known.</li>
+         <li>Reconnect the sensor's blue plug before proceeding to the ECU-end resistance check.</li>
+       </ol>
+       <p class="result"><strong>Recorded cold result:</strong> approximately <strong>3.9–4.0 kΩ</strong>. Coolant temperature was not measured, so the exact expected resistance at that moment cannot be determined.</p>
+     </section>
+     <section class="procedure-section" id="continuity"><h2>03 / Verify coolant sensor wire to ECU plug pin 10</h2>
+       <ol class="step-list">
+         <li>With ignition off and battery negative still disconnected, unplug the <strong>ECU</strong> and unplug the <strong>blue sensor connector</strong> again.</li>
+         <li>Switch the multimeter to <strong>continuity / beep</strong>. Touch one probe to the sensor's <strong>wiring-side connector</strong> and check the identified contacts on the disconnected <strong>ECU wiring plug</strong>, without forcing or shorting pins.</li>
+         <li>Verify that the sensor signal wire has continuity to <strong>ECU plug pin 10</strong>, then reconnect the blue sensor plug.</li>
+       </ol>
+       <p class="result"><strong>Recorded finding:</strong> continuity to <strong>pin 10</strong> was confirmed. This establishes continuity at the time of the test, not an intermittent-fault-free loom.</p>
+     </section>
+     <section class="procedure-section" id="cold-ecu"><h2>04 / Cold resistance from the ECU end</h2>
+       <ol class="step-list">
+         <li>Leave <strong>blue sensor connected</strong>, <strong>ECU disconnected</strong>, battery negative disconnected and ignition off.</li>
+         <li>Set the meter to <strong>20 kΩ</strong> and measure <strong>between pins 10 and 13 of the disconnected ECU WIRING PLUG</strong>, not on the ECU unit.</li>
+         <li>Compare the reading with the direct sensor measurement at roughly the same coolant temperature. Major disagreement suggests a wiring, connector or earth issue.</li>
+       </ol>
+       <p class="result"><strong>Recorded finding:</strong> <strong>3.9 kΩ</strong> across pins <strong>10 and 13</strong>, matching the approximately 3.9–4.0 kΩ cold sensor reading. The circuit appears continuous and consistent at the temperature tested.</p>
+     </section>
+     <section class="procedure-section" id="warm"><h2>05 / Warm-engine resistance check — PENDING</h2>
+       <ol class="step-list">
+         <li>With meter probes removed, <strong>reconnect the ECU and battery</strong> so the vehicle can be run safely. Confirm the blue sensor is still connected.</li>
+         <li>After the intended drive or controlled warm-up, bring the engine to normal operating temperature. If possible note actual coolant temperature; the reference below assumes about <strong>80 °C</strong>.</li>
+         <li><strong>Stop the engine and turn ignition OFF.</strong> Disconnect the negative battery terminal, ensure fan and moving parts have stopped, and unplug the ECU when safe to access. Avoid burns from hot components.</li>
+         <li>With the <strong>blue sensor still connected</strong>, set the multimeter to <strong>2 kΩ</strong> (or auto-ranging resistance). Quickly measure between <strong>pins 10 and 13 at the ECU wiring plug</strong> while the engine is warm.</li>
+         <li>Record the temperature and resistance. Resistance should be <strong>significantly lower than the cold 3.9 kΩ</strong>. At an actual coolant temperature near <strong>80 °C</strong>, the published LE2-Jetronic range is <strong>290–370 Ω</strong>.</li>
+         <li>If a result is implausible, repeat directly at the sensor (with power off, battery disconnected, ECU unplugged and blue sensor connector unplugged) to distinguish the sensor from its wiring and earth. Refit connectors before driving.</li>
+       </ol>
+       <table class="results-table"><thead><tr><th>Coolant temperature</th><th>LE2-Jetronic reference resistance</th></tr></thead><tbody>
+         <tr><td>−10 °C</td><td>8,200–11,000 Ω</td></tr>
+         <tr><td>20 °C</td><td>2,280–2,720 Ω</td></tr>
+         <tr><td><strong>80 °C</strong></td><td><strong>290–370 Ω</strong></td></tr>
+       </tbody></table>
+       <p class="muted-note">The sensor is an NTC thermistor: resistance falls as temperature rises. These reference figures apply only at the specified temperature and with the appropriate sensor. A merely warm engine cannot be assessed against the 80 °C reference as an exact pass/fail check.</p>
+       <p><strong>Status:</strong> The warm test has <strong>not yet been performed</strong>. Do not enter a result until measured.</p>
+     </section>
+     <section class="procedure-section" id="record"><h2>06 / Workshop log — 21 November 2026</h2>
+       <table class="results-table"><thead><tr><th>Item</th><th>Recorded measurement</th></tr></thead><tbody>
+         <tr><td>Sensor directly, cold</td><td><strong>Approx. 3.9–4.0 kΩ</strong></td></tr>
+         <tr><td>Sensor signal to ECU pin 10</td><td><strong>Continuity found</strong></td></tr>
+         <tr><td>ECU plug pins 10 to 13, cold</td><td><strong>3.9 kΩ</strong></td></tr>
+         <tr><td>ECU plug pins 10 to 13, warm</td><td><strong>Pending</strong></td></tr>
+         <tr><td>Conclusion so far</td><td>Cold resistance reaches the ECU wiring connector as expected. Sensor operation when hot and cause of the rich-running fault remain unconfirmed.</td></tr>
+       </tbody></table>
+       <p><strong>Diagnostic context:</strong> This is part of the ongoing Peugeot 205 GTi investigation into very rich running and black spark plugs. A matching cold reading does not rule out problems when hot or faults elsewhere in the injection system.</p>
+       <p class="muted-note"><strong>Reference material:</strong> <a href="https://www.205gtidrivers.com/forums/topic/95807-205-gti-16-ecu-pinout/" target="_blank" rel="noopener noreferrer">205 GTi LE2 pinout</a>; <a href="https://www.205gtidrivers.com/forums/topic/99870-bosch-ecu/" target="_blank" rel="noopener noreferrer">205 GTi hot and cold sensor measurements</a>; <a href="https://fr.scribd.com/document/470547459/L-injection-LE2-LU2-JETRONIC-Complet-V1" target="_blank" rel="noopener noreferrer">LE2/LU2 technical reference</a>. Use vehicle-specific technical guidance when confirming the fitted sensor type and pin positions.</p>
+     </section>
+   </article><aside class="aside-box"><h3>On this page</h3>
+     <a href="#identification" data-anchor="identification">ECU &amp; meter</a>
+     <a href="#sensor" data-anchor="sensor">Cold sensor test</a>
+     <a href="#continuity" data-anchor="continuity">Pin 10 continuity</a>
+     <a href="#cold-ecu" data-anchor="cold-ecu">Cold ECU-end test</a>
+     <a href="#warm" data-anchor="warm">Warm test (pending)</a>
+     <a href="#record" data-anchor="record">Recorded results</a>
+     <p class="fine">Workshop notes and published reference values, not a confirmed fault diagnosis.</p>
+   </aside></div>
+ </div>`;
+}
+
+function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path===CAR_PROBLEMS_ROOT)return ['205 GTi / CAR PROBLEMS',carProblems()];if(path.startsWith(CAR_PROBLEMS_ROOT+'/')){const parts=path.slice(CAR_PROBLEMS_ROOT.length+1).split('/');if(parts.length<=2){const c=CATEGORIES.find(c=>c.slug===parts[0]);if(c){if(parts.length===1)return ['CAR PROBLEMS / '+c.name.toUpperCase(),carProblemCategory(c)];const p=CAR_PROBLEMS.find(p=>p.category===c.slug&&p.id===parts[1]);if(p)return ['CAR PROBLEM / '+c.name.toUpperCase(),carProblemDetail(p)];}}}if(path===HIST_ROOT)return ['205 GTi / HISTORICAL TESTS',historicalTests()];if(path.startsWith(HIST_ROOT+'/')){const parts=path.slice(HIST_ROOT.length+1).split('/');if(parts.length===1){const cat=CATEGORIES.find(c=>c.slug===parts[0]);if(cat)return ['HISTORICAL TESTS / '+cat.name.toUpperCase(),historicalCategory(cat)];}}if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];if(path==='/cars/205-gti/tools')return ['205 GTi / SPECIALIST TOOLS',specialistTools()];if(path==='/cars/205-gti/tools/gearbox-refill-funnel')return ['SPECIALIST TOOLS / GEARBOX FUNNEL',gearboxFunnelTool()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()];if(m[2]==='gearbox-oil-refill'&&c.slug==='drivetrain')return ['DRIVETRAIN / GEARBOX OIL',gearboxOilRefill()];if(m[2]==='plated-lsd-breakaway-test'&&c.slug==='drivetrain')return ['DRIVETRAIN / LSD TEST',lsdBreakawayTest()];if(m[2]==='battery-voltage-starting-test'&&c.slug==='electrical')return ['ELECTRICAL / BATTERY TEST',batteryStartingTest()];if(m[2]==='coolant-temperature-sensor-ecu-test'&&c.slug==='engine')return ['ENGINE / COOLANT SENSOR',coolantTemperatureEcuTest()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
 function render(){const path=pathNow(),[breadcrumb,markup]=getPage(path);document.getElementById('app').innerHTML=markup;document.getElementById('breadcrumb').textContent=breadcrumb;document.getElementById('primary-nav').innerHTML=nav(path);document.title=`${breadcrumb} | Rallying`;document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false');document.querySelectorAll('a[data-anchor]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'start'})}));window.scrollTo(0,0)}
 window.addEventListener('hashchange',render);document.addEventListener('DOMContentLoaded',()=>{render();document.getElementById('menu-toggle').addEventListener('click',()=>{const shell=document.querySelector('.site-shell'),open=shell.classList.toggle('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded',String(open))});document.getElementById('sidebar-scrim').addEventListener('click',()=>{document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false')})});
