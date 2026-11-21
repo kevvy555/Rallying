@@ -4,7 +4,7 @@ const ROOT = '#/cars/205-gti';
 const CATEGORIES = [
   {slug:'brakes',name:'Braking system',symbol:'◎',desc:'Servo, hydraulics, pads, discs and balance',count:1},
   {slug:'engine',name:'Engine & fuel',symbol:'⚡',desc:'Injection, ignition, cooling and emissions',count:0},
-  {slug:'drivetrain',name:'Transmission & drivetrain',symbol:'⚙',desc:'Gearbox, differential, shafts and joints',count:2},
+  {slug:'drivetrain',name:'Transmission & drivetrain',symbol:'⚙',desc:'Gearbox, differential, shafts and joints',count:3},
   {slug:'suspension',name:'Suspension & steering',symbol:'⌁',desc:'Dampers, alignment, joints and steering',count:0},
   {slug:'electrical',name:'Electrical',symbol:'⌘',desc:'Charging, starting, wiring and instruments',count:0},
   {slug:'chassis',name:'Chassis & safety',symbol:'▣',desc:'Shell, cage, seats, belts and fire equipment',count:0}
@@ -12,6 +12,7 @@ const CATEGORIES = [
 const PROCEDURES = [
   {slug:'brake-servo-vacuum',category:'brakes',name:'Brake servo & vacuum circuit',desc:'Check assistance, vacuum retention, the one-way valve and intake leaks.',duration:'20–40 MIN',equipment:'Vacuum pump recommended',status:'Documented'},
   {slug:'driveshaft-removal-refit',category:'drivetrain',name:'Driveshaft removal & refitting',desc:'Peugeot 205 GTi rally-car driveshaft procedure, including intermediate bearing, seals, torque checks and collar modification.',duration:'Workshop job',equipment:'Axle stands, torque wrenches, 11 mm deep and 16 mm sockets',status:'Documented'},
+  {slug:'gearbox-oil-refill',category:'drivetrain',name:'Gearbox oil refill',desc:'Refill using a 17 mm stubby spanner and slim 30 cm funnel, keeping the battery and oil catch can fitted.',duration:'Workshop job',equipment:'17 mm stubby spanner, slim 30 cm funnel, correct gearbox oil',status:'Documented'},
   {slug:'plated-lsd-breakaway-test',category:'drivetrain',name:'Plated LSD breakaway torque test',desc:'In-car static resistance check, recorded 28 Nm result, and bench-test follow-up for the 205 GTi rally car.',duration:'Stationary diagnostic',equipment:'Jack, axle stand, wheel chocks, torque wrench and suitable hub socket',status:'Documented'}
 ];
 const url = path => `#${path}`;
@@ -42,7 +43,7 @@ function driveshaft(){
     <div class="callout"><strong>Safety & applicability.</strong> Park on level ground, chock wheels and use correctly positioned axle stands — never rely on a jack alone. Disconnect or support components without loading brake hoses or CV joints. Torque values below apply to standard manual-transmission GTi hardware; confirm modified rally components against their manufacturer's specifications. Do not drive until all safety-critical fasteners and hub-nut locking are confirmed.</div>
     <div class="procedure-layout"><article>
       <section class="procedure-section" id="tools"><h2>01 / Equipment &amp; parts</h2>
-        <p>Jack and axle stands; wheel chocks; hub-nut socket and high-range torque wrench; <strong>16 mm socket</strong> for both the lower ball-joint pinch bolt and track-rod end nut; <strong>11 mm long-reach socket</strong> for the two intermediate-bearing retainer nuts; ball-joint separator; suitable clamp-slot spreading tool; <strong>hammer and punch</strong> for staking the hub nut (where fitted); <strong>17 mm stubby spanner</strong> for the plastic gearbox oil filler plug on this car; <strong>slim funnel approximately 30 cm long</strong> for refilling the gearbox oil without removing the battery; <strong>welding equipment and appropriate welding PPE/heat and spatter shielding</strong> for the rally-specific intermediate-bearing collar modification only; clean drain tray; replacement driveshaft; <strong>new gearbox oil seal and new hub nut</strong>; correct gearbox oil; a small quantity of moly grease for the hub splines.</p>
+        <p>Jack and axle stands; wheel chocks; hub-nut socket and high-range torque wrench; <strong>16 mm socket</strong> for both the lower ball-joint pinch bolt and track-rod end nut; <strong>11 mm long-reach socket</strong> for the two intermediate-bearing retainer nuts; ball-joint separator; suitable clamp-slot spreading tool; <strong>hammer and punch</strong> for staking the hub nut (where fitted); <strong>17 mm stubby spanner</strong> for the plastic gearbox oil filler plug on this car; <strong>welding equipment and appropriate welding PPE/heat and spatter shielding</strong> for the rally-specific intermediate-bearing collar modification only; clean drain tray; replacement driveshaft; <strong>new gearbox oil seal and new hub nut</strong>; correct gearbox oil; a small quantity of moly grease for the hub splines.</p>
         <p class="muted-note">Record the exact shaft and nut design fitted, especially on modified rally cars. Replace any damaged fasteners or seals rather than reusing them.</p>
       </section>
       <section class="procedure-section" id="remove"><h2>02 / Removal</h2>
@@ -75,7 +76,7 @@ function driveshaft(){
           <li>Reconnect the <strong>track-rod end</strong>, fully seat its taper and <strong>torque the 16 mm nut to 35 Nm</strong>. Check the joint is secure.</li>
           <li>Fit a <strong>new hub nut</strong> and start by hand. Refit the wheel and snug the wheel bolts, but do not apply their final torque yet.</li>
           <li>With the vehicle lowered and the hub safely restrained, <strong>torque the standard GTi hub nut to 260 Nm</strong>. Lock it using the design actually fitted: <strong>stake/peen the new nut flange into the shaft groove</strong>, or <strong>install the locking collar and R-clip</strong>. Do not mix locking methods.</li>
-          <li>Check or refill the gearbox with the specified oil to the correct level. <strong>Workshop tool note:</strong> Use a <strong>17 mm stubby spanner</strong> on this car's <strong>plastic gearbox oil filler plug</strong>; take care not to damage or overtighten the plastic fitting. To make refilling easier without removing the battery, use a <strong>slim funnel approximately 30 cm long</strong>. Inspect the gearbox seal for leaks.</li>
+          <li>Check or refill the gearbox with the specified oil to the correct level, following the dedicated ${link('/cars/205-gti/testing/drivetrain/gearbox-oil-refill','gearbox oil refill procedure')}. Inspect the gearbox seal for leaks.</li>
           <li><strong>Torque the wheel bolts</strong>. The Haynes figure for standard Peugeot 205 wheel bolts is <strong>85 Nm</strong>; verify any aftermarket rally wheel, bolt or stud hardware separately.</li>
         </ol>
       </section>
@@ -100,6 +101,42 @@ function driveshaft(){
       <a href="#check" data-anchor="check">Final checks</a>
       <a href="#torque" data-anchor="torque">Torque reference</a>
       <p class="fine">Personal workshop log — modifications and fitted hardware may differ from stock Peugeot specifications.</p>
+    </aside></div>
+  </div>`;
+}
+
+
+function gearboxOilRefill(){
+  return `<div class="container">
+    <div class="procedure-heading">
+      ${link('/cars/205-gti/testing/drivetrain','← Transmission & drivetrain','back-link')}
+      <div class="procedure-header"><div class="eyebrow">PEUGEOT 205 GTi 1.9 / DRIVETRAIN / 003</div><span class="pill">WORKSHOP LOG</span></div>
+      <h1>GEARBOX OIL <span style="color:var(--accent)">REFILL</span></h1>
+      <p>Workshop method for topping up the gearbox on this rally-prepared 205 GTi using a slim funnel, <strong>without removing the battery or oil catch can</strong>.</p>
+      <div class="tag-row"><span class="tag">Peugeot 205 GTi 1.9</span><span class="tag">Gearbox oil</span><span class="tag">Battery and catch can remain fitted</span></div>
+    </div>
+    <div class="callout"><strong>Safety and applicability.</strong> Switch off the engine and park on level ground. If the vehicle must be raised, support it securely on appropriate axle stands, not just a jack, and keep it level for a valid oil-level check. The filler plug and access method are recorded for this modified rally car; confirm the correct oil grade, level-check method and plug requirements for the gearbox actually fitted. Do not assume the amount lost is the correct quantity to add.</div>
+    <div class="procedure-layout"><article>
+      <section class="procedure-section" id="equipment"><h2>01 / Equipment</h2>
+        <p><strong>17 mm stubby spanner</strong> for the car's plastic gearbox oil filler plug; a <strong>slim funnel approximately 30 cm long</strong>; gearbox oil of the correct specification; clean rag and a suitable tray for any spill.</p>
+      </section>
+      <section class="procedure-section" id="refilling"><h2>02 / Refilling procedure</h2>
+        <ol class="step-list">
+          <li>With the engine off and vehicle securely positioned, locate the <strong>plastic gearbox oil filler plug</strong> and clean around it to prevent dirt entering the gearbox.</li>
+          <li>Carefully loosen and remove the plug with the <strong>17 mm stubby spanner</strong>. Avoid damaging the plastic fitting.</li>
+          <li>Position the <strong>slim 30 cm funnel</strong> so oil can be added with <strong>both the battery and oil catch can left in place</strong>. Keep the funnel clear of wiring, hoses and other components.</li>
+          <li>Add the specified gearbox oil slowly, checking against the <strong>correct level and filling procedure for the fitted gearbox</strong>. Do not use a fixed top-up volume based solely on an earlier oil loss.</li>
+          <li>Remove the funnel, refit the plastic filler plug and secure it according to its applicable specification. <strong>Do not overtighten the plastic plug.</strong> Wipe away any spilled oil and inspect for leaks.</li>
+        </ol>
+      </section>
+      <section class="procedure-section" id="observations"><h2>03 / Related workshop observation</h2>
+        <p>During the recorded ${link('/cars/205-gti/testing/drivetrain/driveshaft-removal-refit','driveshaft removal and refitting procedure')}, approximately <strong>250 mL of gearbox oil</strong> escaped when the shaft was withdrawn. That is an observation from one job, <strong>not a prescribed refill amount</strong>; verify the actual gearbox level.</p>
+      </section>
+    </article><aside class="aside-box"><h3>On this page</h3>
+      <a href="#equipment" data-anchor="equipment">Equipment</a>
+      <a href="#refilling" data-anchor="refilling">Refilling</a>
+      <a href="#observations" data-anchor="observations">Workshop observation</a>
+      <p class="fine">Personal workshop notes for this modified Peugeot 205 GTi. Confirm gearbox specifications before servicing.</p>
     </aside></div>
   </div>`;
 }
@@ -165,6 +202,6 @@ function lsdBreakawayTest(){
 }
 
 function nav(current){const items=[['/home','⌂','Home'],['/cars','▣','Rally cars']];const vehicle=current.startsWith('/cars/205-gti');return `${items.map(([path,icon,label])=>`<a class="nav-link ${current===path?'active':''}" href="${url(path)}"><span class="nav-symbol" aria-hidden="true">${icon}</span>${label}</a>`).join('')}<div class="nav-section">PEUGEOT 205 GTi</div><div class="nav-group">${[['/cars/205-gti','Overview'],['/cars/205-gti/history','History'],['/cars/205-gti/testing','Testing & procedures'],['/cars/205-gti/events','Events']].map(([p,l])=>`<a class="nav-link ${(current===p||(p.endsWith('/testing')&&current.startsWith(p+'/')))?'active':''}" href="${url(p)}">${l}</a>`).join('')}</div>${vehicle&&current.startsWith('/cars/205-gti/testing')?`<div class="nav-section">WORKSHOP SYSTEMS</div><div class="nav-group">${CATEGORIES.map(c=>`<a class="nav-link ${current.startsWith('/cars/205-gti/testing/'+c.slug)?'active':''}" href="${url('/cars/205-gti/testing/'+c.slug)}">${c.name}</a>`).join('')}</div>`:''}`}
-function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()];if(m[2]==='plated-lsd-breakaway-test'&&c.slug==='drivetrain')return ['DRIVETRAIN / LSD TEST',lsdBreakawayTest()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
+function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()];if(m[2]==='gearbox-oil-refill'&&c.slug==='drivetrain')return ['DRIVETRAIN / GEARBOX OIL',gearboxOilRefill()];if(m[2]==='plated-lsd-breakaway-test'&&c.slug==='drivetrain')return ['DRIVETRAIN / LSD TEST',lsdBreakawayTest()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
 function render(){const path=pathNow(),[breadcrumb,markup]=getPage(path);document.getElementById('app').innerHTML=markup;document.getElementById('breadcrumb').textContent=breadcrumb;document.getElementById('primary-nav').innerHTML=nav(path);document.title=`${breadcrumb} | Rallying`;document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false');document.querySelectorAll('a[data-anchor]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'start'})}));window.scrollTo(0,0)}
 window.addEventListener('hashchange',render);document.addEventListener('DOMContentLoaded',()=>{render();document.getElementById('menu-toggle').addEventListener('click',()=>{const shell=document.querySelector('.site-shell'),open=shell.classList.toggle('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded',String(open))});document.getElementById('sidebar-scrim').addEventListener('click',()=>{document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false')})});
