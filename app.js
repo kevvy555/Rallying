@@ -55,11 +55,11 @@ function gearboxFunnelTool(){
           <tr><td>Upper funnel opening</td><td><strong>100 mm width</strong> at the top (assumed circular only for illustration; not confirmed)</td></tr>
           <tr><td>Lower insertion tip</td><td><strong>20 mm outside diameter</strong></td></tr>
           <tr><td>Straight tip insertion section</td><td><strong>20 mm length</strong>, included in the 230 mm tube</td></tr>
-          <tr><td>Section above straight tip</td><td><strong>30 mm</strong> from the top of the 20 mm straight tip to the bottom of the wide funnel portion, as described by owner; exact geometric relationship to 230 mm tube needs confirmation</td></tr>
+          <tr><td>Section above straight tip</td><td><strong>30 mm</strong> above the 20 mm straight tip, joining <strong>directly to the bottom of the wide upper funnel</strong> (owner confirmed); this placement still needs reconciliation with the stated 230 mm tube length</td></tr>
         </tbody></table>
       </section>
       <section class="procedure-section" id="unresolved"><h2>02 / Before modelling or printing</h2>
-        <p><strong>Geometry to reconcile:</strong> a 230 mm long tube including a 20 mm tip leaves 210 mm above the tip. The additionally stated 30 mm from the tip to the bottom of the wide funnel does not yet establish where the remaining length is positioned. Preserve both requirements until the intended shape is confirmed; do not silently shorten the tube.</p>
+        <p><strong>Geometry to reconcile:</strong> the owner confirmed that the 30 mm section immediately above the 20 mm straight tip connects directly to the wide funnel. Those two consecutive sections account for only 50 mm below the funnel, whereas the main filler tube was specified as 230 mm including the tip. The location or interpretation of the remaining 180 mm is unresolved; do not shorten the 230 mm requirement or generate a print-ready model until this is clarified.</p>
         <p><strong>Still unspecified:</strong> wall thickness, tube internal bore, upper funnel taper/profile, print material, and actual gearbox opening clearance. The stated 20 mm measurement is the <strong>outside diameter</strong> of the insertion tip. Choose oil-compatible materials and confirm the printed part fits without forcing before use.</p>
       </section>
       <section class="procedure-section" id="use"><h2>03 / Related workshop procedure</h2>
