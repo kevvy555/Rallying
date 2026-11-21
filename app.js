@@ -54,6 +54,7 @@ function driveshaft(){
           <li><strong>Driver's/offside only:</strong> Loosen the two <strong>11 mm</strong> intermediate-bearing retaining nuts and rotate the retaining bolt heads clear of the bearing. Support the shaft so the CV joint is not pulled apart.</li>
           <li>Put a clean drain tray beneath the gearbox outlet to catch any escaping oil. Withdraw the driveshaft carefully, supporting the shaft and keeping it clear of the gearbox seal and its running surface.</li>
         </ol>
+        <p class="muted-note"><strong>Workshop observation:</strong> Approximately <strong>250 mL of gearbox oil</strong> was lost when the driveshaft was removed on this car. The quantity can vary with the oil level and vehicle angle; catch the oil and check/top up the gearbox to the specified level during refitting rather than assuming a fixed loss.</p>
       </section>
       <section class="procedure-section" id="prepare"><h2>03 / Replacement-shaft preparation</h2>
         <ol class="step-list">
