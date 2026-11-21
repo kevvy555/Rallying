@@ -4,14 +4,15 @@ const ROOT = '#/cars/205-gti';
 const CATEGORIES = [
   {slug:'brakes',name:'Braking system',symbol:'◎',desc:'Servo, hydraulics, pads, discs and balance',count:1},
   {slug:'engine',name:'Engine & fuel',symbol:'⚡',desc:'Injection, ignition, cooling and emissions',count:0},
-  {slug:'drivetrain',name:'Transmission & drivetrain',symbol:'⚙',desc:'Gearbox, differential, shafts and joints',count:1},
+  {slug:'drivetrain',name:'Transmission & drivetrain',symbol:'⚙',desc:'Gearbox, differential, shafts and joints',count:2},
   {slug:'suspension',name:'Suspension & steering',symbol:'⌁',desc:'Dampers, alignment, joints and steering',count:0},
   {slug:'electrical',name:'Electrical',symbol:'⌘',desc:'Charging, starting, wiring and instruments',count:0},
   {slug:'chassis',name:'Chassis & safety',symbol:'▣',desc:'Shell, cage, seats, belts and fire equipment',count:0}
 ];
 const PROCEDURES = [
   {slug:'brake-servo-vacuum',category:'brakes',name:'Brake servo & vacuum circuit',desc:'Check assistance, vacuum retention, the one-way valve and intake leaks.',duration:'20–40 MIN',equipment:'Vacuum pump recommended',status:'Documented'},
-  {slug:'driveshaft-removal-refit',category:'drivetrain',name:'Driveshaft removal & refitting',desc:'Peugeot 205 GTi rally-car driveshaft procedure, including intermediate bearing, seals, torque checks and collar modification.',duration:'Workshop job',equipment:'Axle stands, torque wrenches, 11 mm deep and 16 mm sockets',status:'Documented'}
+  {slug:'driveshaft-removal-refit',category:'drivetrain',name:'Driveshaft removal & refitting',desc:'Peugeot 205 GTi rally-car driveshaft procedure, including intermediate bearing, seals, torque checks and collar modification.',duration:'Workshop job',equipment:'Axle stands, torque wrenches, 11 mm deep and 16 mm sockets',status:'Documented'},
+  {slug:'plated-lsd-breakaway-test',category:'drivetrain',name:'Plated LSD breakaway torque test',desc:'In-car static resistance check, recorded 28 Nm result, and bench-test follow-up for the 205 GTi rally car.',duration:'Stationary diagnostic',equipment:'Jack, axle stand, wheel chocks, torque wrench and suitable hub socket',status:'Documented'}
 ];
 const url = path => `#${path}`;
 const pathNow = () => (window.location.hash || '#/home').slice(1).replace(/\/$/,'') || '/home';
@@ -102,7 +103,67 @@ function driveshaft(){
   </div>`;
 }
 
+
+function lsdBreakawayTest(){
+  return `<div class="container">
+    <div class="procedure-heading">
+      ${link('/cars/205-gti/testing/drivetrain','← Transmission & drivetrain','back-link')}
+      <div class="procedure-header"><div class="eyebrow">PEUGEOT 205 GTi 1.9 / DRIVETRAIN / 002</div><span class="pill">WORKSHOP TEST</span></div>
+      <h1>PLATED LSD <span style="color:var(--accent)">BREAKAWAY TORQUE</span></h1>
+      <p>Static in-car check of limited-slip differential resistance, followed by the more direct bench-test method. Recorded for the Peugeot 205 GTi rally car on 21 November 2026. Differential manufacturer and exact build specification have not yet been confirmed.</p>
+      <div class="tag-row"><span class="tag">In-car screening test</span><span class="tag">Approx. 28 Nm observed</span><span class="tag">Approx. 95 Nm stated target</span></div>
+    </div>
+    <div class="callout"><strong>Safety:</strong> Stationary test only. Use level ground, rear wheel chocks, correct jacking points and a rated axle stand. Never rely on a jack alone or work beneath a car supported only by a jack. Keep clear of the rotating wheel, steering and driveline. Work with the engine off and gearbox in neutral; do not run the engine during the test. Use the actual differential maker's testing procedure where available.</div>
+    <div class="procedure-layout"><article>
+      <section class="procedure-section" id="record"><h2>01 / Recorded result</h2>
+        <table class="results-table"><thead><tr><th>Item</th><th>Observation</th></tr></thead><tbody>
+          <tr><td>Vehicle</td><td>Peugeot 205 GTi 1.9 rally car, plated LSD</td></tr>
+          <tr><td>Expected preload</td><td><strong>About 95 Nm</strong>, owner-reported; original build/test method not yet verified</td></tr>
+          <tr><td>Measured in-car breakaway</td><td><strong>About 28 Nm</strong>, similar on two further checks</td></tr>
+          <tr><td>Test configuration</td><td>One driven front wheel raised, other driven wheel on ground, gearbox in neutral</td></tr>
+          <tr><td>Interpretation</td><td>Lower than the stated target, but <strong>not a direct measurement of the differential alone</strong></td></tr>
+          <tr><td>Follow-up</td><td>Bench-test differential after removal if an accurate assessment is required</td></tr>
+        </tbody></table>
+        <p class="muted-note">Do not describe the difference as a precise percentage of plate wear: 95 Nm and 28 Nm may have been measured by different methods, and the in-car result includes additional drivetrain drag.</p>
+      </section>
+      <section class="procedure-section" id="tools"><h2>02 / Equipment</h2>
+        <p>Wheel chocks; jack and rated axle stand; correctly sized hub-nut socket; a calibrated torque wrench with an appropriate lower measurement range (or torque gauge) and suitable drive adapter; means of recording readings. For a bench test, suitable differential-output spline adapters and a secure fixture are required.</p>
+      </section>
+      <section class="procedure-section" id="oncar"><h2>03 / Static in-car check</h2>
+        <ol class="step-list">
+          <li>Park on firm, level ground, switch the engine off, select <strong>neutral</strong>, apply the handbrake and chock the rear wheels. Ensure there is no risk of vehicle movement.</li>
+          <li>Raise <strong>one front driven wheel</strong> and support the vehicle securely on an axle stand. Leave the <strong>opposite front wheel on the ground</strong> so that differential output is held against rotation.</li>
+          <li>With the wheel and hub assembly safe to turn, attach a properly fitting socket and calibrated torque wrench or suitable torque gauge to the raised wheel's hub. Apply torque <strong>only in the direction that tightens the hub nut</strong>, without disturbing its locking method or exceeding any fastening specification. If that cannot be done safely, use a suitable hub fixture instead.</li>
+          <li>Apply torque smoothly and progressively. For a click-type wrench, begin with a low setting: if it clicks while the wheel stays still, increase the setting in small increments. Note the point where the wheel starts to rotate <strong>before the wrench clicks</strong>. A beam/digital indicating gauge can show the onset of rotation more directly.</li>
+          <li>Repeat the check with the same setup and direction. Record all readings, how rotation was detected, which wheel was lifted, gearbox temperature if relevant, and any obvious brake drag or CV-joint resistance.</li>
+        </ol>
+        <div class="callout"><strong>What this means:</strong> The measured resistance includes hub bearings, driveshaft/CV joints, possible brake drag and the plated differential. It is useful for repeatable <em>in-car comparisons</em>, but is not equivalent to a bench preload specification. Breakaway measures static clutch resistance, not the LSD's torque-dependent ramp locking under engine load.</div>
+      </section>
+      <section class="procedure-section" id="bench"><h2>04 / Differential bench test (follow-up)</h2>
+        <ol class="step-list">
+          <li>Remove and support the gearbox/differential using the correct workshop procedure. Follow the differential manufacturer's instructions for oil condition, assembly and test setup.</li>
+          <li>With the differential accessible, use correctly fitting output-drive fixtures. Secure <strong>one differential output</strong> against rotation while allowing the differential body and opposite output to be supported as specified.</li>
+          <li>Apply torque to the <strong>other differential output</strong> with an appropriate calibrated tool. Increase smoothly and record the torque at the start of relative movement, repeating to establish a consistent reading.</li>
+          <li>Compare the bench result with the <strong>verified build specification measured using the same method</strong>. If it is below specification, investigate clutch plate condition, spring/Belleville washers and clutch-stack settings with the differential manufacturer or specialist before adjusting or rebuilding.</li>
+        </ol>
+        <p class="muted-note">This is an outline of the measurement, not a gearbox strip-down or LSD rebuild procedure. Fixture arrangements and target torque vary by differential design.</p>
+      </section>
+      <section class="procedure-section" id="decision"><h2>05 / Assessment and next action</h2>
+        <p>The repeated <strong>approximately 28 Nm</strong> in-car reading suggests substantially less resistance than the <strong>roughly 95 Nm</strong> stated target, but it does <strong>not</strong> establish the exact internal preload. In-car drag tends to contaminate the reading. Confirm the LSD make/model and original measurement method, then bench-test before choosing a rebuild or preload adjustment. Avoid attributing the result solely to worn plates without inspection.</p>
+        <p><strong>Archive references:</strong> <a href="https://pinderwagen.com/build-topics/gripper-plate-differential-strip-adjust-breakaway-torque-rebuild/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Illustrated example of an LSD bench breakaway test</a>; <a href="https://gripperlsd.com/technical-zone/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Gripper manufacturer technical information</a>. These references illustrate methods; the LSD fitted to this car is not yet confirmed as a Gripper.</p>
+      </section>
+    </article><aside class="aside-box"><h3>On this page</h3>
+      <a href="#record" data-anchor="record">Recorded reading</a>
+      <a href="#tools" data-anchor="tools">Tools</a>
+      <a href="#oncar" data-anchor="oncar">In-car test</a>
+      <a href="#bench" data-anchor="bench">Bench test</a>
+      <a href="#decision" data-anchor="decision">Assessment</a>
+      <p class="fine">Personal workshop record. No diagnosis or rebuild decision is confirmed from the in-car reading alone.</p>
+    </aside></div>
+  </div>`;
+}
+
 function nav(current){const items=[['/home','⌂','Home'],['/cars','▣','Rally cars']];const vehicle=current.startsWith('/cars/205-gti');return `${items.map(([path,icon,label])=>`<a class="nav-link ${current===path?'active':''}" href="${url(path)}"><span class="nav-symbol" aria-hidden="true">${icon}</span>${label}</a>`).join('')}<div class="nav-section">PEUGEOT 205 GTi</div><div class="nav-group">${[['/cars/205-gti','Overview'],['/cars/205-gti/history','History'],['/cars/205-gti/testing','Testing & procedures'],['/cars/205-gti/events','Events']].map(([p,l])=>`<a class="nav-link ${(current===p||(p.endsWith('/testing')&&current.startsWith(p+'/')))?'active':''}" href="${url(p)}">${l}</a>`).join('')}</div>${vehicle&&current.startsWith('/cars/205-gti/testing')?`<div class="nav-section">WORKSHOP SYSTEMS</div><div class="nav-group">${CATEGORIES.map(c=>`<a class="nav-link ${current.startsWith('/cars/205-gti/testing/'+c.slug)?'active':''}" href="${url('/cars/205-gti/testing/'+c.slug)}">${c.name}</a>`).join('')}</div>`:''}`}
-function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
+function getPage(path){if(path==='/home'||path==='/')return ['HOME',home()];if(path==='/cars')return ['RALLY CARS',cars()];if(path==='/cars/205-gti')return ['PEUGEOT 205 GTi',carOverview()];if(path==='/cars/205-gti/history')return ['205 GTi / HISTORY',history()];if(path==='/cars/205-gti/testing')return ['205 GTi / WORKSHOP',testing()];if(path==='/cars/205-gti/events')return ['205 GTi / EVENTS',events()];const m=path.match(/^\/cars\/205-gti\/testing\/([a-z-]+)(?:\/([a-z-]+))?$/);if(m){const c=CATEGORIES.find(x=>x.slug===m[1]);if(c){if(!m[2])return [c.name.toUpperCase(),categoryPage(c)];if(m[2]==='brake-servo-vacuum'&&c.slug==='brakes')return ['BRAKES / SERVO',servo()];if(m[2]==='driveshaft-removal-refit'&&c.slug==='drivetrain')return ['DRIVETRAIN / DRIVESHAFT',driveshaft()];if(m[2]==='plated-lsd-breakaway-test'&&c.slug==='drivetrain')return ['DRIVETRAIN / LSD TEST',lsdBreakawayTest()]}}return ['NOT FOUND',`<div class="container">${header('ARCHIVE / 404','WRONG <em>TURN.</em>','That page is not in the rally archive.')} ${buttonLink('/home','Back home',true)}</div>`]}
 function render(){const path=pathNow(),[breadcrumb,markup]=getPage(path);document.getElementById('app').innerHTML=markup;document.getElementById('breadcrumb').textContent=breadcrumb;document.getElementById('primary-nav').innerHTML=nav(path);document.title=`${breadcrumb} | Rallying`;document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false');document.querySelectorAll('a[data-anchor]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'start'})}));window.scrollTo(0,0)}
 window.addEventListener('hashchange',render);document.addEventListener('DOMContentLoaded',()=>{render();document.getElementById('menu-toggle').addEventListener('click',()=>{const shell=document.querySelector('.site-shell'),open=shell.classList.toggle('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded',String(open))});document.getElementById('sidebar-scrim').addEventListener('click',()=>{document.querySelector('.site-shell').classList.remove('nav-open');document.getElementById('menu-toggle').setAttribute('aria-expanded','false')})});
